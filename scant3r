@@ -339,7 +339,6 @@ def threader2():
 		w.task_done()
 if __name__ == "__main__":
 	try:
-		logo()
 		v=paramscanner()
 		getargs()
 		if modulee == True:
