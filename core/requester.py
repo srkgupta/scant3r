@@ -45,11 +45,6 @@ def con(url,redir,cookie=None,timeo=None,proxy=None,slp=0,cagent=None):
 			v = f'[{v}]'
 		except:
 			v = '[]'
-		print(f'''
-{info} {bold}Host {end}: {urlparse(url).netloc}
-{info} {bold}Status Code {end}: {r.status_code}
-{info} {bold}Server {end}: {v}
-			''')
 		if r.status_code == 999:
 			sleep(1)
 	except requests.exceptions.ConnectionError:
