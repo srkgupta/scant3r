@@ -56,7 +56,7 @@ errors = {'sqlite3':'sqlite3.OperationalError','MySQL': 'error in your SQL synta
              'FetchRow()' : 'FetchRow()',
 	     'Internal Server Error':'The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.',
              'Input string was not in a correct format' : 'Input string was not in a correct format',
-             'Not found' : 'Not found','internal server':'The page cannot be displayed because an internal server error has occurred.','Internal Server Error':'The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application'}
+             'internal server':'The page cannot be displayed because an internal server error has occurred.','Internal Server Error':'The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application'}
 def uagent(payload=None,one=False,cagent=None):
 	agents=[
 	'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14',
