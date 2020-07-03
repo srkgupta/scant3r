@@ -283,21 +283,21 @@ class paramscanner: # Scanner Module
 				ok = True
 		if ok:
 			x = 0
-			payloads=['{{6*6}}','<%= 6 * 6 %>','${6*6}']
+			payloads=['test{{6*6}}purpose','test<%= 6 * 6 %>purpose','test${6*6}purpose']
 			for payload in payloads:
 				for i,c in dat.items():
 					dat[i] = c.replace('*','Scant3rSSTI')
 				te = requests.post(url,data=dat,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
 				sleep(slp)
-				fir = re.findall('36'.encode('utf-8'),te.content)
+				fir = re.findall('test36purpose'.encode('utf-8'),te.content)
 				for i,c in dat.items():
 					dat[i] = c.replace('Scant3rSSTI',payload)
 				sleep(slp)
 				r = requests.post(url,data=dat,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-				ch = re.findall('36'.encode('utf-8'),r.content)
+				ch = re.findall('test36purpose'.encode('utf-8'),r.content)
 				if len(ch) > len(fir):
 					r = requests.post(url,data=dat,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-					ch = re.findall('36'.encode('utf-8'),r.content)
+					ch = re.findall('test36purpose'.encode('utf-8'),r.content)
 					print(f"""Bug Found : Template Injection (SSTI), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					for i,d in dat.items():
 						dat[i] = i.replace(payload,'*')
@@ -307,17 +307,17 @@ class paramscanner: # Scanner Module
 						dat[i] = i.replace(payload,'*')
 					continue
 		else:
-			payloads=['{{6*6}}','<%= 6 * 6 %>','${6*6}']
+			payloads=['test{{6*6}}purpose','test<%= 6 * 6 %>purpose','test${6*6}purpose']
 			x = 0
 			sleep(slp)
 			te = requests.post(url,data=dat,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-			fir = re.findall('36'.encode('utf-8'),te.content)
+			fir = re.findall('test36purpose'.encode('utf-8'),te.content)
 			for payload in payloads:
 				for i,c in dat.items():
 					dat[i] = c + payload
 				sleep(slp)
 				r = requests.post(url,data=dat,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-				ch = re.findall('36'.encode('utf-8'),r.content)
+				ch = re.findall('test36purpose'.encode('utf-8'),r.content)
 				if len(ch) > len(fir):
 					print(f"""Bug Found : Template Injection (SSTI), Payload : {payload}, Method: [POST], VALUES: {dat}, URL : {r.url}""")
 					for i,d in dat.items():
@@ -395,16 +395,16 @@ class paramscanner: # Scanner Module
 	def ssti(self,url,co,tim,deco,redir,cagent=None,proxy=None,slp=0,batch=None):
 		if '*' in url:
 			x = 0
-			payloads=['{{ 6*6 }}','<%= 6 * 6 %>','${6*6}']
+			payloads=['test{{6*6}}purpose','test<%= 6 * 6 %>purpose','test${6*6}purpose']
 			sleep(slp)
 			te=requests.get(url.replace('*',''),headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-			fir = re.findall('36'.encode('utf-8'),te.content)
+			fir = re.findall('test36purpose'.encode('utf-8'),te.content)
 			for payload in payloads:
 				for h in range(deco):
 					payload=urlencoder(payload)
 				sleep(slp)
 				r=requests.get(url.replace('*',str(payload).strip()),headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-				ch = re.findall('36'.encode('utf-8'),r.content)
+				ch = re.findall('test36purpose'.encode('utf-8'),r.content)
 				if len(ch) > len(fir):
 					j=url.replace('*',str(payload).strip())
 					print(f"""Bug Found : Template Injection, Payload : {payload}, Exploit: {j}""")
@@ -413,15 +413,15 @@ class paramscanner: # Scanner Module
 			sleep(slp)
 			x = 0
 			te=requests.get(url,headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-			fir = re.findall('36'.encode('utf-8'),te.content)
+			fir = re.findall('test36purpose'.encode('utf-8'),te.content)
 			for params in url.split("?")[1].split("&"):
-				payloads=['{{6*6}}','<%= 6 * 6 %>','${6*6}']
+				payloads=['test{{6*6}}purpose','test<%= 6 * 6 %>purpose','test${6*6}purpose']
 				for payload in payloads:
 					for h in range(deco):
 						payload=urlencoder(payload)
 					sleep(slp)
 					r=requests.get(url.replace(params, params + str(payload).strip()),headers={'User-agent':uagent(cagent=cagent)},cookies=co,verify=False,allow_redirects=redir,timeout=tim,proxies=proxy)
-					ch = re.findall('36'.encode('utf-8'),r.content)
+					ch = re.findall('test36purpose'.encode('utf-8'),r.content)
 					if len(ch) > len(fir):
 						j=url.replace(params, params + str(payload).strip())
 						print(f"""Bug Found : Template Injection, Payload : {payload}, Exploit: {j}""")
@@ -529,7 +529,7 @@ class headers_scanner: # Header Scanner Module ;-;
 					print(f"""Bug Found : Remote Code Execution (in referrer header), Payload : {payload}, Method: [POST], URL: {r.url}""")
 
 	def referrer_ssti(url,timeo=None,cookie=None,redir=None,deco=None,method=None,date=None,cagent=None,proxy=None,slp=0,batch=None):
-		payloads=['{{ 6*6 }}','<%= 6 * 6 %>','${6*6}']
+		payloads=['test{{6*6}}purpose','test<%= 6 * 6 %>purpose','test${6*6}purpose']
 		for payload in payloads:
 			if method == 'get':
  				sleep(slp)
@@ -540,10 +540,10 @@ class headers_scanner: # Header Scanner Module ;-;
  				r = requests.get(url,headers={"User-agent":uagent(cagent=cagent),"referrer":f"{payload}"},timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
  				sleep(slp)
  				r2 = requests.post(url,headers={"User-agent":uagent(cagent=cagent),"referrer":f"{payload}"},timeout=timeo,verify=False,allow_redirects=redir,cookies=cookie,proxies=proxy)
- 				cch = re.findall("36".encode('utf-8'),rr.content)
- 				cch2 = re.findall("36".encode("utf-8"),rr2.content)
- 				ch = re.findall('36'.encode('utf-8'),r.content)
- 				ch2 = re.findall("36".encode("utf-8"),r2.content)
+ 				cch = re.findall("test36purpose".encode('utf-8'),rr.content)
+ 				cch2 = re.findall("test36purpose".encode("utf-8"),rr2.content)
+ 				ch = re.findall('test36purpose'.encode('utf-8'),r.content)
+ 				ch2 = re.findall("test36purpose".encode("utf-8"),r2.content)
  				if len(ch) > len(cch):
 					 print(f"""Bug Found : Template Injection (in referrer header), Payload : {payload}, Method: [GET], URL: {url}""")
 					 break
