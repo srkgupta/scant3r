@@ -39,7 +39,6 @@ errors = {'sqlite3':'sqlite3.OperationalError','MySQL': 'error in your SQL synta
              'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
              'MS-Access_JETdb': 'Microsoft JET Database',
              'Error Occurred While Processing Request' : 'Error Occurred While Processing Request',
-             'unkown' : 'Server Error',
              'Microsoft OLE DB Provider for ODBC Drivers error' : 'Microsoft OLE DB Provider for ODBC Drivers error',
              'Invalid Querystring' : 'Invalid Querystring',
              'OLE DB Provider for ODBC' : 'OLE DB Provider for ODBC',
@@ -54,9 +53,7 @@ errors = {'sqlite3':'sqlite3.OperationalError','MySQL': 'error in your SQL synta
              'GetArray()' : 'GetArray()',
              'Fatal error': 'Fatal error',
              'FetchRow()' : 'FetchRow()',
-	     'Internal Server Error':'The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.',
-             'Input string was not in a correct format' : 'Input string was not in a correct format',
-             'internal server':'The page cannot be displayed because an internal server error has occurred.','Internal Server Error':'The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application'}
+			 }
 def uagent(payload=None,one=False,cagent=None):
 	agents=[
 	'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14',
